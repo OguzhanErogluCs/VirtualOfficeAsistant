@@ -3,6 +3,7 @@ from tkinter import StringVar
 from tkcalendar import Calendar
 
 from FrameCalendar import FrameCalendar
+from FrameNotifications import FrameNotifications
 
 
 class MainWindow:
@@ -21,4 +22,5 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = MainWindow(root)
     calendarframe = FrameCalendar(app)
+    notificationsframe = FrameNotifications(app)
     root.mainloop()

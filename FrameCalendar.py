@@ -32,57 +32,70 @@ class FrameCalendar():
         self.taskEntry.pack(fill="x", expand="yes", side="top")
 
         self.taskButton = tk.Button(self.tasks,
-                                    text="Add Task",
+                                    text=" + Add",
                                     fg="black", command=self.taskButtonClicked)
-        self.taskButton.pack(side="bottom")
+        self.taskButton.pack(anchor="s",side="left")
 
-        """self.showTasks = tk.Button(self.tasks,
-                                   text="Show Tasks",
-                                   fg="black", command=self.showTaskButtonClicked)
-        self.showTasks.pack(anchor="s", side="right")"""
+        self.deleteTask = tk.Button(self.tasks,
+                                   text=" - Delete",
+                                   fg="black", command=self.deleteSelectedItem)
+        self.deleteTask.pack(anchor="s",side="right")
 
-        self.taskLabel = tk.Label(self.tasks, text="")
-        self.taskLabel.pack(fill="x", expand="yes", side="top")
 
+        self.listBox = tk.Listbox(self.tasks)
+        self.listBox.pack(pady=15,fill="both",padx = 10)
         self.master.master.bind('<Button-1>', self.mouseClicked)
+
+        """self.scrollbar = tk.Scrollbar(self.tasks, orient="vertical")
+        self.scrollbar.config(command=self.listBox.yview)
+        self.scrollbar.pack(anchor="ne",side="top", fill="y")
+
+        self.listBox.config(yscrollcommand=self.scrollbar.set) """
+
+
 
     def taskButtonClicked(self):
 
         theDay = self.staticText.get()
         self.TaskText.set(self.taskEntry.get())
+        if self.taskEntry.get() != "":
+            if theDay in self.dayTaskDict.keys():
+                self.dayTaskDict[theDay].append(self.TaskText.get())
 
-        if theDay in self.dayTaskDict.keys():
-            self.dayTaskDict[theDay].append(self.TaskText.get())
+            else:
+                self.dayTaskDict[theDay] = []
+                self.dayTaskDict[theDay].append(self.TaskText.get())
 
-        else:
-            self.dayTaskDict[theDay] = []
-            self.dayTaskDict[theDay].append(self.TaskText.get())
-
-
-        self.taskLabel.config(text=("\n".join(self.dayTaskDict[theDay])))
-
-        self.taskEntry.delete(0, 'end')  # delete enrty after submitting it.
-
+            self.insertListElements()
+            self.taskEntry.delete(0, 'end')  # delete enrty after submitting it.
 
 
     def mouseClicked(self, event):
-        print("mouse clicked")
+        #print("mouse clicked")
         theDay = self.staticText.get()
+
         if self.previousDay != self.staticText.get():
             print("gun degisti")
             if theDay in self.dayTaskDict.keys():
-                self.taskLabel.config(text=("\n".join(self.dayTaskDict[theDay])))
+                self.insertListElements()
             else:
-                self.taskLabel.config(text="")
+                self.listBox.delete(0,'end')
         else:
             print("gun degismedi")
 
         self.previousDay = self.staticText.get()
 
-"""    def showTaskButtonClicked(self):
+
+    def insertListElements(self):
 
         theDay = self.staticText.get()
+        self.listBox.delete(0, 'end')
+        for i in self.dayTaskDict[theDay]:
+            self.listBox.insert(tk.END, i)
 
-        if theDay in self.dayTaskDict.keys():
-            self.taskLabel = tk.Label(self.tasks, text=self.dayTaskDict[theDay])
-            self.taskLabel.config(text=("\n".join(self.dayTaskDict[theDay])))"""
+    def deleteSelectedItem(self):
+
+        theDay = self.staticText.get()
+        if(self.listBox.curselection()):
+            self.dayTaskDict[theDay].remove(self.dayTaskDict[theDay][self.listBox.curselection()[0]]) # delete selected items from dict
+            self.listBox.delete(tk.ANCHOR) # delete selected items from listbox
