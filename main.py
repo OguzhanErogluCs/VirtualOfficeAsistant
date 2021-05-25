@@ -3,6 +3,7 @@ from tkinter import StringVar
 from tkcalendar import Calendar
 
 from FrameCalendar import FrameCalendar
+from FrameCamera import FrameCamera
 from FrameNotifications import FrameNotifications
 
 
@@ -12,7 +13,7 @@ class MainWindow:
         self.master = master
 
         master.title("Virtual Assistant")
-        master.geometry("600x400")
+        master.geometry("700x600")
         master.grid_rowconfigure(0, weight=1)
         master.grid_columnconfigure(0, weight=1)
         master.resizable(True, True)
@@ -23,4 +24,5 @@ if __name__ == "__main__":
     app = MainWindow(root)
     calendarframe = FrameCalendar(app)
     notificationsframe = FrameNotifications(app)
+    cameraframe = FrameCamera(app)
     root.mainloop()
