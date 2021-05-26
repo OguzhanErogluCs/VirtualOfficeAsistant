@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import StringVar
+
 from tkcalendar import Calendar
 
 
@@ -38,12 +39,12 @@ class FrameCalendar():
 
         self.taskButton = tk.Button(self.tasks,
                                     text=" + Add",
-                                    fg="black", command=self.taskButtonClicked)
+                                    fg="black", command=self.taskButtonClicked, font = "Helvetica 10 bold")
         self.taskButton.pack(anchor="s", side="left", padx=30, pady=10, ipadx=20)
 
         self.deleteTask = tk.Button(self.tasks,
                                     text=" - Delete",
-                                    fg="black", command=self.deleteSelectedItem)
+                                    fg="black", command=self.deleteSelectedItem, font = "Helvetica 10 bold")
         self.deleteTask.pack(anchor="s", side="right", padx=30, pady=10, ipadx=20)
 
         """self.scrollbar = tk.Scrollbar(self.tasks, orient="vertical")
@@ -51,6 +52,7 @@ class FrameCalendar():
         self.scrollbar.pack(anchor="ne",side="top", fill="y")
 
         self.listBox.config(yscrollcommand=self.scrollbar.set) """
+
 
     def taskButtonClicked(self):
 
@@ -96,3 +98,4 @@ class FrameCalendar():
             self.dayTaskDict[theDay].remove(
                 self.dayTaskDict[theDay][self.listBox.curselection()[0]])  # delete selected items from dict
             self.listBox.delete(tk.ANCHOR)  # delete selected items from listbox
+
