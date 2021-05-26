@@ -12,11 +12,11 @@ class FrameCalendar():
 
         self.previousDay = ""
 
-        labelframe = tk.LabelFrame(self.master.master, text="Calendar")
-        labelframe.pack(fill="x", side="bottom")
+        labelframe = tk.LabelFrame(self.master.master, text="  Calendar  ",font = "Helvetica 11 bold", bd= 3, labelanchor = "n")
+        labelframe.pack(fill="x", side="bottom", padx=5, pady=5)
 
-        self.tasks = tk.LabelFrame(labelframe, text="Tasks")
-        self.tasks.pack(fill="both", expand="yes", side="left")
+        self.tasks = tk.LabelFrame(labelframe, text=" Tasks ",font = "Helvetica 10 bold", labelanchor = "nw", bd= 3)
+        self.tasks.pack(fill="both", expand="yes", side="left", padx=5, pady=5)
 
         self.staticText = StringVar(self.master.master, Calendar.date.today().strftime("%d/%m/%y"))
 
@@ -24,7 +24,7 @@ class FrameCalendar():
                             date_pattern='dd/mm/yy', textvariable=self.staticText)
         self.cal.pack(side="right", padx=10, pady=10)
 
-        self.dynamic_label = tk.Label(self.tasks, textvariable=self.staticText, font=12).pack(side="top")
+        self.dynamic_label = tk.Label(self.tasks, textvariable=self.staticText, font = "Helvetica 15 bold").pack(side="top")
 
         self.TaskText = StringVar(self.tasks)
 
@@ -33,6 +33,7 @@ class FrameCalendar():
 
         self.listBox = tk.Listbox(self.tasks)
         self.listBox.pack(pady=5, fill="both", padx=20)
+
         self.master.master.bind('<Button-1>', self.mouseClicked)
 
         self.taskButton = tk.Button(self.tasks,
