@@ -45,7 +45,7 @@ class FrameNotifications:
 
     def exerciseControl(self):
 
-        if (datetime.datetime.now() - self.lastBreakTime).seconds >= 5:
+        if (datetime.datetime.now() - self.lastBreakTime).seconds >= 30:
             self.listBox.insert(tk.END, " You have been working for 30 seconds.")
             self.listBox.insert(tk.END, " Let's exercise for your health. ")
             self.lastBreakTime = datetime.datetime.now()
