@@ -74,13 +74,13 @@ class FrameCalendar():
         theDay = self.staticText.get()
 
         if self.previousDay != self.staticText.get():
-            print("gun degisti")
+            #print("gun degisti")
             if theDay in self.dayTaskDict.keys():
                 self.insertListElements()
             else:
                 self.listBox.delete(0, 'end')
-        else:
-            print("gun degismedi")
+        #else:
+            #print("gun degismedi")
 
         self.previousDay = self.staticText.get()
 
