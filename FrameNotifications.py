@@ -34,21 +34,27 @@ class FrameNotifications:
         #print((x, y))
         #print(self.prevMouseCoords)
         if self.prevMouseCoords == (x, y):
-            self.listBox.insert(tk.END, time.strftime('%H:%M') + " --- " + " You haven't been around for 20 seconds. How was your break?")
+            self.listBox.insert(tk.END, time.strftime('%H:%M') + " --- " + " You haven't been around for 10 seconds. ")
+            self.listBox.insert(tk.END, "              How was your break? ")
             self.lastBreakTime = datetime.datetime.now()
 
         self.prevMouseCoords = x, y
-        self.master.master.after(20000, self.breakCounter)  # call again 20000ms later
+        self.master.master.after(10000, self.breakCounter)  # call again 10000ms later
 
     def exerciseControl(self):
 
-        if (datetime.datetime.now() - self.lastBreakTime).seconds >= 40:
-            self.listBox.insert(tk.END, time.strftime('%H:%M') + " --- " + " You have been working for 40 seconds.")
-            self.listBox.insert(tk.END, " Let's exercise for your health. ")
+
+        if ((datetime.datetime.now() - self.lastBreakTime).seconds % 30) == 0 and ((datetime.datetime.now() - self.lastBreakTime).seconds >= 30):
+            self.listBox.insert(tk.END, time.strftime('%H:%M') + " --- " + " Drinking water helps maintain the balance of body. ")
+            self.listBox.insert(tk.END, "              Let's balance them. ")
+
+        if (datetime.datetime.now() - self.lastBreakTime).seconds >= 60:
+            self.listBox.insert(tk.END, time.strftime('%H:%M') + " --- " + " You have been working for 60 seconds.")
+            self.listBox.insert(tk.END, "              Let's exercise for your health. ")
             self.lastBreakTime = datetime.datetime.now()
             self.exercisePopup()
 
-        self.master.master.after(1000, self.exerciseControl)  # call again 10000ms later
+        self.master.master.after(1000, self.exerciseControl)  # call again 1000ms later
 
     def exercisePopup(self):
 
@@ -57,7 +63,7 @@ class FrameNotifications:
         labelHeading.pack(side="top", padx=20, pady=20)
 
         tendonButton = tk.Button(newWindow,
-                                 text=" Tendon Gliding Exercisee ",
+                                 text=" Tendon Gliding Exercise ",
                                  fg="black", command=self.tendonPopup, font="Helvetica 10 bold")
         tendonButton.pack(anchor="s", side="left", padx=30, pady=10, ipadx=20)
 
